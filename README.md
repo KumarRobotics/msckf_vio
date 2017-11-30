@@ -1,14 +1,7 @@
 # MSCKF\_VIO
 
-<!--
-[![Build Status](https://travis-ci.org/KumarRobotics/velodyne_puck.svg?branch=master)](https://travis-ci.org/KumarRobotics/velodyne_puck)
--->
 
-<!--
-![Picture of Velodyne Puck](http://velodynelidar.com/images/products/vlp-16/puck.png)
--->
-
-The `MSCKF_VIO` package is a stereo implementation of the MSCKF algorithm introduced in [1] with modifications. The software takes in synchronized stereo image pairs and IMU messages and generates real-time 6DOF pose estimation of the IMU frame.
+The `MSCKF_VIO` package is a stereo version of MSCKF. The software takes in synchronized stereo images and IMU messages and generates real-time 6DOF pose estimation of the IMU frame.
 
 The software is tested on Ubuntu 16.04 with ROS Kinetic.
 
@@ -92,6 +85,3 @@ Odometry of the IMU frame including a proper covariance.
 `feature_point_cloud` (`sensor_msgs/PointCloud2`)
 
 Shows current features in the map which may be used for estimation.
-
-
-[1] Mourikis, Anastasios I., and Stergios I. Roumeliotis. "A multi-state constraint Kalman filter for vision-aided inertial navigation." Robotics and automation, 2007 IEEE international conference on. IEEE, 2007.
