@@ -1,0 +1,20 @@
+<library path="lib/libmsckf_vio_nodelet">
+  <class name="msckf_vio/MsckfVioNodelet"
+         type="msckf_vio::MsckfVioNodelet"
+         base_class_type="nodelet::Nodelet">
+    <description>
+      Multi-State contraint Kalman filter for vision-
+      aided inertial navigation with observability constain.
+    </description>
+  </class>
+</library>
+
+<library path="lib/libimage_processor_nodelet">
+  <class name="msckf_vio/ImageProcessorNodelet"
+         type="msckf_vio::ImageProcessorNodelet"
+         base_class_type="nodelet::Nodelet">
+    <description>
+      Detect and track features in image sequence.
+    </description>
+  </class>
+</library>
