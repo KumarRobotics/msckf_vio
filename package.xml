@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<package format="2">
+
+  <name>msckf_vio</name>
+  <version>0.0.1</version>
+  <description>Multi-State Constraint Kalman Filter for Vision-aided Inertial Navigation</description>
+
+  <maintainer email="sunke.polyu@gmail.com">Ke Sun</maintainer>
+  <license>Penn Software License</license>
+
+  <author email="sunke.polyu@gmail.com">Ke Sun</author>
+  <author email="kartikmohta@gmail.com">Kartik Mohta</author>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <depend>roscpp</depend>
+  <depend>std_msgs</depend>
+  <depend>tf</depend>
+  <depend>nav_msgs</depend>
+  <depend>sensor_msgs</depend>
+  <depend>geometry_msgs</depend>
+  <depend>eigen_conversions</depend>
+  <depend>tf_conversions</depend>
+  <depend>random_numbers</depend>
+  <depend>message_generation</depend>
+  <depend>message_runtime</depend>
+  <depend>nodelet</depend>
+  <depend>image_transport</depend>
+  <depend>cv_bridge</depend>
+  <depend>message_filters</depend>
+  <depend>pcl_conversions</depend>
+  <depend>pcl_ros</depend>
+  <depend>std_srvs</depend>
+
+  <depend>libpcl-all-dev</depend>
+  <depend>libpcl-all</depend>
+  <depend>suitesparse</depend>
+
+  <export>
+    <nodelet plugin="${prefix}/nodelets.xml"/>
+  </export>
+
+</package>

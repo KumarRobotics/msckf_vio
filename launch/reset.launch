@@ -1,0 +1,7 @@
+<launch>
+  <arg name="robot" default="fla1"/>
+  <group ns="$(arg robot)">
+    <node pkg="rosservice" type="rosservice" name="reset_vio"
+      args="call --wait vio/reset"/>
+  </group>
+</launch>

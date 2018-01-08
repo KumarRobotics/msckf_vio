@@ -1,0 +1,33 @@
+<launch>
+
+  <arg name="robot" default="fla"/>
+  <arg name="calibration_file"
+    default="$(find msckf_vio)/config/camchain-imucam-fla.yaml"/>
+
+  <!-- Image Processor Nodelet  -->
+  <group ns="$(arg robot)">
+    <node pkg="nodelet" type="nodelet" name="image_processor"
+      args="standalone msckf_vio/ImageProcessorNodelet"
+      output="screen">
+
+      <rosparam command="load" file="$(arg calibration_file)"/>
+      <param name="grid_row" value="4"/>
+      <param name="grid_col" value="5"/>
+      <param name="grid_min_feature_num" value="2"/>
+      <param name="grid_max_feature_num" value="3"/>
+      <param name="pyramid_levels" value="3"/>
+      <param name="patch_size" value="15"/>
+      <param name="fast_threshold" value="10"/>
+      <param name="max_iteration" value="30"/>
+      <param name="track_precision" value="0.01"/>
+      <param name="ransac_threshold" value="3"/>
+      <param name="stereo_threshold" value="5"/>
+
+      <remap from="~imu" to="sync/imu/imu"/>
+      <remap from="~cam0_image" to="sync/cam0/image_raw"/>
+      <remap from="~cam1_image" to="sync/cam1/image_raw"/>
+
+    </node>
+  </group>
+
+</launch>
