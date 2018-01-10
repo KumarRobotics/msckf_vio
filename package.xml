@@ -22,8 +22,6 @@
   <depend>eigen_conversions</depend>
   <depend>tf_conversions</depend>
   <depend>random_numbers</depend>
-  <depend>message_generation</depend>
-  <depend>message_runtime</depend>
   <depend>nodelet</depend>
   <depend>image_transport</depend>
   <depend>cv_bridge</depend>
@@ -31,10 +29,14 @@
   <depend>pcl_conversions</depend>
   <depend>pcl_ros</depend>
   <depend>std_srvs</depend>
+  <build_depend>message_generation</build_depend>
+  <exec_depend>message_runtime</exec_depend>
 
   <depend>libpcl-all-dev</depend>
   <depend>libpcl-all</depend>
   <depend>suitesparse</depend>
+
+  <test_depend>rosunit</test_depend>
 
   <export>
     <nodelet plugin="${prefix}/nodelets.xml"/>
