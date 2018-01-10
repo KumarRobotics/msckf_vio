@@ -1,7 +1,7 @@
 # SPQR lib usually requires linking to a blas and lapack library.
 # It is up to the user of this module to find a BLAS and link to it.
 
-# SPQR lib requires Cholmod, colamd and amd as well. 
+# SPQR lib requires Cholmod, colamd and amd as well.
 # FindCholmod.cmake can be used to find those packages before finding spqr
 
 if (SPQR_INCLUDES AND SPQR_LIBRARIES)
@@ -23,11 +23,11 @@ find_library(SPQR_LIBRARIES spqr $ENV{SPQRDIR} ${LIB_INSTALL_DIR})
 
 if(SPQR_LIBRARIES)
 
-  find_library(SUITESPARSE_LIBRARY SuiteSparse PATHS $ENV{SPQRDIR} ${LIB_INSTALL_DIR})
-  if (SUITESPARSE_LIBRARY)
-    set(SPQR_LIBRARIES ${SPQR_LIBRARIES} ${SUITESPARSE_LIBRARY})
-  endif (SUITESPARSE_LIBRARY)
-  
+  find_library(SUITESPARSECONFIG_LIBRARY NAMES suitesparseconfig PATHS $ENV{SPQRDIR} ${LIB_INSTALL_DIR})
+  if (SUITESPARSECONFIG_LIBRARY)
+    set(SPQR_LIBRARIES ${SPQR_LIBRARIES} ${SUITESPARSECONFIG_LIBRARY})
+  endif (SUITESPARSECONFIG_LIBRARY)
+
 endif(SPQR_LIBRARIES)
 
 include(FindPackageHandleStandardArgs)
