@@ -24,6 +24,12 @@ using namespace std;
 using namespace Eigen;
 using namespace msckf_vio;
 
+// Static member variables in CAMState class
+Isometry3d CAMState::T_cam0_cam1 = Isometry3d::Identity();
+
+// Static member variables in Feature class
+Feature::OptimizationConfig Feature::optimization_config;
+
 TEST(FeatureInitializeTest, sphereDistribution) {
   // Set the real feature at the origin of the world frame.
   Vector3d feature(0.5, 0.0, 0.0);
@@ -73,7 +79,7 @@ TEST(FeatureInitializeTest, sphereDistribution) {
 
   // Compute measurements.
   random_numbers::RandomNumberGenerator noise_generator;
-  vector<Vector2d, aligned_allocator<Vector2d> > measurements(6);
+  vector<Vector4d, aligned_allocator<Vector4d> > measurements(6);
   for (int i = 0; i < 6; ++i) {
     Isometry3d cam_pose_inv = cam_poses[i].inverse();
     Vector3d p = cam_pose_inv.linear()*feature + cam_pose_inv.translation();
@@ -81,7 +87,7 @@ TEST(FeatureInitializeTest, sphereDistribution) {
     double v = p(1) / p(2) + noise_generator.gaussian(0.0, 0.01);
     //double u = p(0) / p(2);
     //double v = p(1) / p(2);
-    measurements[i] = Vector2d(u, v);
+    measurements[i] = Vector4d(u, v, u, v);
   }
 
   for (int i = 0; i < 6; ++i) {
