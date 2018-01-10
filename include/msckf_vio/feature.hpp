@@ -142,7 +142,7 @@ struct Feature {
   // state_id(key)-image_coordinates(value) manner.
   std::map<StateIDType, Eigen::Vector4d, std::less<StateIDType>,
     Eigen::aligned_allocator<
-      std::pair<const StateIDType, Eigen::Vector2d> > > observations;
+      std::pair<const StateIDType, Eigen::Vector4d> > > observations;
 
   // 3d postion of the feature in the world frame.
   Eigen::Vector3d position;
