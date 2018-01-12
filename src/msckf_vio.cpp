@@ -132,16 +132,12 @@ bool MsckfVio::loadParameters() {
   Isometry3d T_imu_cam0 = utils::getTransformEigen(nh, "cam0/T_cam_imu");
   Isometry3d T_cam0_imu = T_imu_cam0.inverse();
 
-  Isometry3d T_imu_cam1 = utils::getTransformEigen(nh, "cam1/T_cam_imu");
-  Isometry3d T_cam1_imu = T_imu_cam1.inverse();
-
-  Isometry3d T_body_imu = utils::getTransformEigen(nh, "T_imu_body");
-
-  //CAMState::T_imu_cam0 = T_cam0_imu.inverse();
   state_server.imu_state.R_imu_cam0 = T_cam0_imu.linear().transpose();
   state_server.imu_state.t_cam0_imu = T_cam0_imu.translation();
-  CAMState::T_cam0_cam1 = T_imu_cam1 * T_cam0_imu;
-  IMUState::T_imu_body = T_body_imu.inverse();
+  CAMState::T_cam0_cam1 =
+    utils::getTransformEigen(nh, "cam1/T_cn_cnm1");
+  IMUState::T_imu_body =
+    utils::getTransformEigen(nh, "T_imu_body").inverse();
 
   // Maximum number of camera states to be stored
   nh.param<int>("max_cam_state_size", max_cam_state_size, 30);
@@ -172,8 +168,8 @@ bool MsckfVio::loadParameters() {
   ROS_INFO("initial extrinsic translation cov: %f",
       extrinsic_translation_cov);
 
-  cout << T_imu_cam1.linear() << endl;
-  cout << T_imu_cam1.translation().transpose() << endl;
+  cout << T_imu_cam0.linear() << endl;
+  cout << T_imu_cam0.translation().transpose() << endl;
 
   ROS_INFO("max camera state #: %d", max_cam_state_size);
   ROS_INFO("===========================================");
