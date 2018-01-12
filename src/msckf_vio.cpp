@@ -25,6 +25,7 @@
 
 #include <msckf_vio/msckf_vio.h>
 #include <msckf_vio/math_utils.hpp>
+#include <msckf_vio/utils.h>
 
 using namespace std;
 using namespace Eigen;
@@ -128,55 +129,13 @@ bool MsckfVio::loadParameters() {
     state_server.state_cov(i, i) = extrinsic_translation_cov;
 
   // Transformation offsets between the frames involved.
-  Isometry3d T_imu_cam0;
-  vector<double> cam0_extrinsics(16);
-  nh.getParam("cam0/T_cam_imu", cam0_extrinsics);
-  T_imu_cam0.linear()(0, 0) = cam0_extrinsics[0];
-  T_imu_cam0.linear()(0, 1) = cam0_extrinsics[1];
-  T_imu_cam0.linear()(0, 2) = cam0_extrinsics[2];
-  T_imu_cam0.linear()(1, 0) = cam0_extrinsics[4];
-  T_imu_cam0.linear()(1, 1) = cam0_extrinsics[5];
-  T_imu_cam0.linear()(1, 2) = cam0_extrinsics[6];
-  T_imu_cam0.linear()(2, 0) = cam0_extrinsics[8];
-  T_imu_cam0.linear()(2, 1) = cam0_extrinsics[9];
-  T_imu_cam0.linear()(2, 2) = cam0_extrinsics[10];
-  T_imu_cam0.translation()(0) = cam0_extrinsics[3];
-  T_imu_cam0.translation()(1) = cam0_extrinsics[7];
-  T_imu_cam0.translation()(2) = cam0_extrinsics[11];
+  Isometry3d T_imu_cam0 = utils::getTransformEigen(nh, "cam0/T_cam_imu");
   Isometry3d T_cam0_imu = T_imu_cam0.inverse();
 
-  Isometry3d T_imu_cam1;
-  vector<double> cam1_extrinsics(16);
-  nh.getParam("cam1/T_cam_imu", cam1_extrinsics);
-  T_imu_cam1.linear()(0, 0) = cam1_extrinsics[0];
-  T_imu_cam1.linear()(0, 1) = cam1_extrinsics[1];
-  T_imu_cam1.linear()(0, 2) = cam1_extrinsics[2];
-  T_imu_cam1.linear()(1, 0) = cam1_extrinsics[4];
-  T_imu_cam1.linear()(1, 1) = cam1_extrinsics[5];
-  T_imu_cam1.linear()(1, 2) = cam1_extrinsics[6];
-  T_imu_cam1.linear()(2, 0) = cam1_extrinsics[8];
-  T_imu_cam1.linear()(2, 1) = cam1_extrinsics[9];
-  T_imu_cam1.linear()(2, 2) = cam1_extrinsics[10];
-  T_imu_cam1.translation()(0) = cam1_extrinsics[3];
-  T_imu_cam1.translation()(1) = cam1_extrinsics[7];
-  T_imu_cam1.translation()(2) = cam1_extrinsics[11];
+  Isometry3d T_imu_cam1 = utils::getTransformEigen(nh, "cam1/T_cam_imu");
   Isometry3d T_cam1_imu = T_imu_cam1.inverse();
 
-  Isometry3d T_body_imu;
-  vector<double> imu_extrinsics(16);
-  nh.getParam("T_imu_body", imu_extrinsics);
-  T_body_imu.linear()(0, 0) = imu_extrinsics[0];
-  T_body_imu.linear()(0, 1) = imu_extrinsics[1];
-  T_body_imu.linear()(0, 2) = imu_extrinsics[2];
-  T_body_imu.linear()(1, 0) = imu_extrinsics[4];
-  T_body_imu.linear()(1, 1) = imu_extrinsics[5];
-  T_body_imu.linear()(1, 2) = imu_extrinsics[6];
-  T_body_imu.linear()(2, 0) = imu_extrinsics[8];
-  T_body_imu.linear()(2, 1) = imu_extrinsics[9];
-  T_body_imu.linear()(2, 2) = imu_extrinsics[10];
-  T_body_imu.translation()(0) = imu_extrinsics[3];
-  T_body_imu.translation()(1) = imu_extrinsics[7];
-  T_body_imu.translation()(2) = imu_extrinsics[11];
+  Isometry3d T_body_imu = utils::getTransformEigen(nh, "T_imu_body");
 
   //CAMState::T_imu_cam0 = T_cam0_imu.inverse();
   state_server.imu_state.R_imu_cam0 = T_cam0_imu.linear().transpose();

@@ -80,6 +80,7 @@ include_directories(
 # Msckf Vio
 add_library(msckf_vio
   src/msckf_vio.cpp
+  src/utils.cpp
 )
 add_dependencies(msckf_vio
   ${${PROJECT_NAME}_EXPORTED_TARGETS}
@@ -107,6 +108,7 @@ target_link_libraries(msckf_vio_nodelet
 # Image processor
 add_library(image_processor
   src/image_processor.cpp
+  src/utils.cpp
 )
 add_dependencies(image_processor
   ${${PROJECT_NAME}_EXPORTED_TARGETS}

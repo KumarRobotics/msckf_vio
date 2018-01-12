@@ -16,6 +16,7 @@
 #include <msckf_vio/CameraMeasurement.h>
 #include <msckf_vio/TrackingInfo.h>
 #include <msckf_vio/image_processor.h>
+#include <msckf_vio/utils.h>
 
 using namespace std;
 using namespace cv;
@@ -86,43 +87,15 @@ bool ImageProcessor::loadParameters() {
   cam1_distortion_coeffs[2] = cam1_distortion_coeffs_temp[2];
   cam1_distortion_coeffs[3] = cam1_distortion_coeffs_temp[3];
 
-  vector<double> cam0_extrinsics(16);
-  cv::Matx33d R_imu_cam0;
-  cv::Vec3d t_imu_cam0;
-  nh.getParam("cam0/T_cam_imu", cam0_extrinsics);
-  R_imu_cam0(0, 0) = cam0_extrinsics[0];
-  R_imu_cam0(0, 1) = cam0_extrinsics[1];
-  R_imu_cam0(0, 2) = cam0_extrinsics[2];
-  R_imu_cam0(1, 0) = cam0_extrinsics[4];
-  R_imu_cam0(1, 1) = cam0_extrinsics[5];
-  R_imu_cam0(1, 2) = cam0_extrinsics[6];
-  R_imu_cam0(2, 0) = cam0_extrinsics[8];
-  R_imu_cam0(2, 1) = cam0_extrinsics[9];
-  R_imu_cam0(2, 2) = cam0_extrinsics[10];
-  t_imu_cam0(0) = cam0_extrinsics[3];
-  t_imu_cam0(1) = cam0_extrinsics[7];
-  t_imu_cam0(2) = cam0_extrinsics[11];
-
+  cv::Mat     T_imu_cam0 = utils::getTransformCV(nh, "cam0/T_cam_imu");
+  cv::Matx33d R_imu_cam0(T_imu_cam0(cv::Rect(0,0,3,3)));
+  cv::Vec3d   t_imu_cam0 = T_imu_cam0(cv::Rect(3,0,1,3));
   R_cam0_imu = R_imu_cam0.t();
   t_cam0_imu = -R_imu_cam0.t() * t_imu_cam0;
 
-  vector<double> cam1_extrinsics(16);
-  cv::Matx33d R_imu_cam1;
-  cv::Vec3d t_imu_cam1;
-  nh.getParam("cam1/T_cam_imu", cam1_extrinsics);
-  R_imu_cam1(0, 0) = cam1_extrinsics[0];
-  R_imu_cam1(0, 1) = cam1_extrinsics[1];
-  R_imu_cam1(0, 2) = cam1_extrinsics[2];
-  R_imu_cam1(1, 0) = cam1_extrinsics[4];
-  R_imu_cam1(1, 1) = cam1_extrinsics[5];
-  R_imu_cam1(1, 2) = cam1_extrinsics[6];
-  R_imu_cam1(2, 0) = cam1_extrinsics[8];
-  R_imu_cam1(2, 1) = cam1_extrinsics[9];
-  R_imu_cam1(2, 2) = cam1_extrinsics[10];
-  t_imu_cam1(0) = cam1_extrinsics[3];
-  t_imu_cam1(1) = cam1_extrinsics[7];
-  t_imu_cam1(2) = cam1_extrinsics[11];
-
+  cv::Mat     T_imu_cam1 = utils::getTransformCV(nh, "cam1/T_cam_imu");
+  cv::Matx33d R_imu_cam1(T_imu_cam1(cv::Rect(0,0,3,3)));
+  cv::Vec3d   t_imu_cam1 = T_imu_cam1(cv::Rect(3,0,1,3));
   R_cam1_imu = R_imu_cam1.t();
   t_cam1_imu = -R_imu_cam1.t() * t_imu_cam1;
 
