@@ -30,8 +30,7 @@ find_package(catkin REQUIRED COMPONENTS
 find_package(Boost REQUIRED)
 find_package(Eigen3 REQUIRED)
 find_package(OpenCV REQUIRED)
-find_package(Cholmod REQUIRED)
-find_package(SPQR REQUIRED)
+find_package(SuiteSparse REQUIRED)
 
 ##################
 ## ROS messages ##
@@ -60,7 +59,7 @@ catkin_package(
     eigen_conversions tf_conversions random_numbers message_runtime
     image_transport cv_bridge message_filters pcl_conversions
     pcl_ros std_srvs
-  DEPENDS Boost EIGEN3 OpenCV CHOLMOD SPQR
+  DEPENDS Boost EIGEN3 OpenCV SUITESPARSE
 )
 
 ###########
@@ -73,8 +72,7 @@ include_directories(
   ${EIGEN3_INCLUDE_DIR}
   ${Boost_INCLUDE_DIR}
   ${OpenCV_INCLUDE_DIRS}
-  ${CHOLMOD_INCLUDES}
-  ${SPQR_INCLUDES}
+  ${SUITESPARSE_INCLUDE_DIRS}
 )
 
 # Msckf Vio
@@ -88,8 +86,7 @@ add_dependencies(msckf_vio
 )
 target_link_libraries(msckf_vio
   ${catkin_LIBRARIES}
-  ${CHOLMOD_LIBRARIES}
-  ${SPQR_LIBRARIES}
+  ${SUITESPARSE_LIBRARIES}
 )
 
 # Msckf Vio nodelet
