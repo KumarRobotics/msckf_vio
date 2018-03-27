@@ -63,7 +63,7 @@ or
 roslaunch msckf_vio msckf_vio_fla.launch
 ```
 
-Once the nodes are running you need to run the dataset rosbags, for example:
+Once the nodes are running you need to run the dataset rosbags (on a different terminal), for example:
 
 ```
 rosbag play V1_01_easy.bag
