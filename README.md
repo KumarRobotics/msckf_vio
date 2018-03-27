@@ -40,6 +40,12 @@ The filter uses the first 200 IMU messages to initialize the gyro bias, acc bias
 
 ## EuRoC and UPenn Fast flight dataset example usage
 
+First obtain [EuRoC](https://projects.asl.ethz.ch/datasets/doku.php?id=kmavvisualinertialdatasets) and/or [UPenn fast flight](https://github.com/KumarRobotics/msckf_vio/wiki/Dataset) from [here](https://projects.asl.ethz.ch/datasets/doku.php?id=kmavvisualinertialdatasets) and [here](https://github.com/KumarRobotics/msckf_vio/wiki/Dataset).
+
+Recommended EuRoC ROS Bags:
+- [Vicon Room 1 01](http://robotics.ethz.ch/~asl-datasets/ijrr_euroc_mav_dataset/vicon_room1/V1_01_easy/V1_01_easy.bag)
+- [Vicon Room 1 02](http://robotics.ethz.ch/~asl-datasets/ijrr_euroc_mav_dataset/vicon_room1/V1_02_easy/V1_02_easy.bag)
+
 Once the `msckf_vio` is built and sourced (via `source <path to catkin_ws>/devel/setup.bash`), there are two launch files prepared for the [EuRoC](https://projects.asl.ethz.ch/datasets/doku.php?id=kmavvisualinertialdatasets) and [UPenn fast flight](https://github.com/KumarRobotics/msckf_vio/wiki/Dataset) dataset with launch files `msckf_vio_euroc.launch` and `msckf_vio_fla.launch` respectively. The launch files instanciates two ROS nodes:
 
 * `image_processor` processes stereo images to detect and track features
@@ -49,9 +55,11 @@ These launch files can be executed via
 
 ```
 roslaunch msckf_vio msckf_vio_euroc.launch
+```
 
 or 
 
+```
 roslaunch msckf_vio msckf_vio_fla.launch
 ```
 
