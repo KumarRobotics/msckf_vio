@@ -37,11 +37,36 @@ An accurate calibration is crucial for successfully running the software. To get
 
 The filter uses the first 200 IMU messages to initialize the gyro bias, acc bias, and initial orientation. Therefore, the robot is required to start from a stationary state in order to initialize the VIO successfully.
 
-## Example Usage
 
-There are launch files prepared for the EuRoC and fast flight dataset separately. Upon launching the `msckf_vio_*.launch`, two ros nodes are created:
-* `image_processor` takes the stereo images to detect and track features.
-* `vio` takes the feature measurements and tightly fuses them with the IMU messages to estimate pose.
+## EuRoC and UPenn Fast flight dataset example usage
+
+Once the `msckf_vio` is built and sourced (via `source <path to catkin_ws>/devel/setup.bash`), there are two launch files prepared for the [EuRoC](https://projects.asl.ethz.ch/datasets/doku.php?id=kmavvisualinertialdatasets) and [UPenn fast flight](https://github.com/KumarRobotics/msckf_vio/wiki/Dataset) dataset with launch files `msckf_vio_euroc.launch` and `msckf_vio_fla.launch` respectively. The launch files instanciates two ROS nodes:
+
+* `image_processor` processes stereo images to detect and track features
+* `vio` obtains feature measurements from the `image_processor` and tightly fuses them with the IMU messages to estimate pose.
+
+These launch files can be executed via
+
+```
+roslaunch msckf_vio msckf_vio_euroc.launch
+
+or 
+
+roslaunch msckf_vio msckf_vio_fla.launch
+```
+
+Once the nodes are running you need to run the dataset rosbags, for example:
+
+```
+rosbag play V1_01_easy.bag
+```
+
+As mentioned in the previous section **The robot is required to start from a stationary state in order to initialize the VIO successfully**
+
+To visualize the pose and feature estimations you can use the provided rviz configurations found in `msckf_vio/rviz` folder to visualize corresponding datatset estimations (EuRoC: `rviz_euroc_config.rviz`, Fast dataset: `rvis_fla_config.rviz`).
+
+
+## ROS Nodes
 
 ### `image_processor` node
 
