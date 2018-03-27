@@ -40,13 +40,13 @@ The filter uses the first 200 IMU messages to initialize the gyro bias, acc bias
 
 ## EuRoC and UPenn Fast flight dataset example usage
 
-First obtain [EuRoC](https://projects.asl.ethz.ch/datasets/doku.php?id=kmavvisualinertialdatasets) and/or [UPenn fast flight](https://github.com/KumarRobotics/msckf_vio/wiki/Dataset) from [here](https://projects.asl.ethz.ch/datasets/doku.php?id=kmavvisualinertialdatasets) and [here](https://github.com/KumarRobotics/msckf_vio/wiki/Dataset).
+First obtain either the [EuRoC](https://projects.asl.ethz.ch/datasets/doku.php?id=kmavvisualinertialdatasets) or the [UPenn fast flight](https://github.com/KumarRobotics/msckf_vio/wiki/Dataset) dataset.
 
 Recommended EuRoC ROS Bags:
 - [Vicon Room 1 01](http://robotics.ethz.ch/~asl-datasets/ijrr_euroc_mav_dataset/vicon_room1/V1_01_easy/V1_01_easy.bag)
 - [Vicon Room 1 02](http://robotics.ethz.ch/~asl-datasets/ijrr_euroc_mav_dataset/vicon_room1/V1_02_easy/V1_02_easy.bag)
 
-Once the `msckf_vio` is built and sourced (via `source <path to catkin_ws>/devel/setup.bash`), there are two launch files prepared for the [EuRoC](https://projects.asl.ethz.ch/datasets/doku.php?id=kmavvisualinertialdatasets) and [UPenn fast flight](https://github.com/KumarRobotics/msckf_vio/wiki/Dataset) dataset with launch files `msckf_vio_euroc.launch` and `msckf_vio_fla.launch` respectively. The launch files instanciates two ROS nodes:
+Once the `msckf_vio` is built and sourced (via `source <path to catkin_ws>/devel/setup.bash`), there are two launch files prepared for the [EuRoC](https://projects.asl.ethz.ch/datasets/doku.php?id=kmavvisualinertialdatasets) and [UPenn fast flight](https://github.com/KumarRobotics/msckf_vio/wiki/Dataset) dataset named `msckf_vio_euroc.launch` and `msckf_vio_fla.launch` respectively. Each launch files instantiates two ROS nodes:
 
 * `image_processor` processes stereo images to detect and track features
 * `vio` obtains feature measurements from the `image_processor` and tightly fuses them with the IMU messages to estimate pose.
@@ -56,22 +56,21 @@ These launch files can be executed via
 ```
 roslaunch msckf_vio msckf_vio_euroc.launch
 ```
-
-or 
+or
 
 ```
 roslaunch msckf_vio msckf_vio_fla.launch
 ```
 
-Once the nodes are running you need to run the dataset rosbags (on a different terminal), for example:
+Once the nodes are running you need to run the dataset rosbags (in a different terminal), for example:
 
 ```
 rosbag play V1_01_easy.bag
 ```
 
-As mentioned in the previous section **The robot is required to start from a stationary state in order to initialize the VIO successfully**
+As mentioned in the previous section, **The robot is required to start from a stationary state in order to initialize the VIO successfully.**
 
-To visualize the pose and feature estimations you can use the provided rviz configurations found in `msckf_vio/rviz` folder to visualize corresponding datatset estimations (EuRoC: `rviz_euroc_config.rviz`, Fast dataset: `rvis_fla_config.rviz`).
+To visualize the pose and feature estimates you can use the provided rviz configurations found in `msckf_vio/rviz` folder (EuRoC: `rviz_euroc_config.rviz`, Fast dataset: `rviz_fla_config.rviz`).
 
 
 ## ROS Nodes
