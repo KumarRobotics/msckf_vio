@@ -65,7 +65,7 @@ inline Eigen::Vector4d quaternionMultiplication(
  *    full quaternion.
  * @note This function is useful to convert delta quaternion
  *    which is usually a 3x1 vector to a full quaternion.
- *    For more details, check Equation (238) and (239) in
+ *    For more details, check Section 3.2 "Kalman Filter Update" in
  *    "Indirect Kalman Filter for 3D Attitude Estimation:
  *    A Tutorial for quaternion Algebra".
  */
