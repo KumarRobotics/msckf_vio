@@ -1109,8 +1109,9 @@ void ImageProcessor::twoPointRansac(
         0, raw_inlier_idx.size()-1)];
     int idx_diff = random_gen.uniformInteger(
         1, raw_inlier_idx.size()-1);
-    int pair_idx2 = pair_idx1+idx_diff < raw_inlier_idx.size() ?
-      pair_idx1+idx_diff : pair_idx1+idx_diff-raw_inlier_idx.size();
+    int pair_idx2 = raw_inlier_idx[
+      pair_idx1+idx_diff < raw_inlier_idx.size() ?
+      pair_idx1+idx_diff : pair_idx1+idx_diff-raw_inlier_idx.size()];
 
     // Construct the model;
     Vector2d coeff_tx(coeff_t(pair_idx1, 0), coeff_t(pair_idx2, 0));
