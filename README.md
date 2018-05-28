@@ -5,7 +5,7 @@ The `MSCKF_VIO` package is a stereo version of MSCKF. The software takes in sync
 
 The software is tested on Ubuntu 16.04 with ROS Kinetic.
 
-Video: [https://www.youtube.com/watch?v=jxfJFgzmNSw&t=3s](https://www.youtube.com/watch?v=jxfJFgzmNSw&t=3s)
+Video: [https://www.youtube.com/watch?v=jxfJFgzmNSw&t](https://www.youtube.com/watch?v=jxfJFgzmNSw&t=3s)<br/>
 Paper Draft: [https://arxiv.org/abs/1712.00036](https://arxiv.org/abs/1712.00036)
 
 ## License
