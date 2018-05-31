@@ -1105,13 +1105,16 @@ void ImageProcessor::twoPointRansac(
     // Randomly select two point pairs.
     // Although this is a weird way of selecting two pairs, but it
     // is able to efficiently avoid selecting repetitive pairs.
-    int pair_idx1 = raw_inlier_idx[random_gen.uniformInteger(
-        0, raw_inlier_idx.size()-1)];
-    int idx_diff = random_gen.uniformInteger(
+    int select_idx1 = random_gen.uniformInteger(
+        0, raw_inlier_idx.size()-1);
+    int select_idx_diff = random_gen.uniformInteger(
         1, raw_inlier_idx.size()-1);
-    int pair_idx2 = raw_inlier_idx[
-      pair_idx1+idx_diff < raw_inlier_idx.size() ?
-      pair_idx1+idx_diff : pair_idx1+idx_diff-raw_inlier_idx.size()];
+    int select_idx2 = select_idx1+select_idx_diff<raw_inlier_idx.size() ?
+      select_idx1+select_idx_diff :
+      select_idx1+select_idx_diff-raw_inlier_idx.size();
+
+    int pair_idx1 = raw_inlier_idx[select_idx1];
+    int pair_idx2 = raw_inlier_idx[select_idx2];
 
     // Construct the model;
     Vector2d coeff_tx(coeff_t(pair_idx1, 0), coeff_t(pair_idx2, 0));
