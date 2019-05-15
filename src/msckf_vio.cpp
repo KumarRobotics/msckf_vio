@@ -1160,8 +1160,9 @@ void MsckfVio::findRedundantCamStates(
     double angle = AngleAxisd(
         rotation*key_rotation.transpose()).angle();
 
-    //if (angle < 0.1745 && distance < 0.2 && tracking_rate > 0.5) {
-    if (angle < 0.2618 && distance < 0.4 && tracking_rate > 0.5) {
+    if (angle < rotation_threshold &&
+        distance < translation_threshold &&
+        tracking_rate > tracking_rate_threshold) {
       rm_cam_state_ids.push_back(cam_state_iter->first);
       ++cam_state_iter;
     } else {
