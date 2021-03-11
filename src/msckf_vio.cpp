@@ -1424,7 +1424,7 @@ void MsckfVio::publish(const ros::Time& time) {
 
   // Publish the 3D positions of the features that
   // has been initialized.
-  pcl::PointCloud<pcl::PointXYZ>::Ptr feature_msg_ptr(
+  boost::shared_ptr<pcl::PointCloud<pcl::PointXYZ> > feature_msg_ptr(
       new pcl::PointCloud<pcl::PointXYZ>());
   feature_msg_ptr->header.frame_id = fixed_frame_id;
   feature_msg_ptr->height = 1;
