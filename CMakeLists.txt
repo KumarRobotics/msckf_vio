@@ -1,5 +1,9 @@
 cmake_minimum_required(VERSION 2.8.12)
-project(msckf_vio)
+project(msckf_vio CXX)
+
+if(NOT CMAKE_BUILD_TYPE)
+  set(CMAKE_BUILD_TYPE Release)
+endif()
 
 add_compile_options(-std=c++14)
 
