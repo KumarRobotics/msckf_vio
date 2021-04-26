@@ -726,7 +726,7 @@ void MsckfVio::stateAugmentation(const double& time) {
   J.block<3, 3>(3, 0) = skewSymmetric(R_w_i.transpose()*t_c_i);
   //J.block<3, 3>(3, 0) = -R_w_i.transpose()*skewSymmetric(t_c_i);
   J.block<3, 3>(3, 12) = Matrix3d::Identity();
-  J.block<3, 3>(3, 18) = Matrix3d::Identity();
+  J.block<3, 3>(3, 18) = R_w_i.transpose();
 
   // Resize the state covariance matrix.
   size_t old_rows = state_server.state_cov.rows();
