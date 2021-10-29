@@ -1363,7 +1363,29 @@ void MsckfVio::onlineReset() {
   return;
 }
 
-void MsckfVio::publish(const ros::Time& time) {
+static inline void LogTrackingPose(const ros::Time &timestamp,
+                                   const Eigen::Isometry3d &T_b_w,
+                                   std::ofstream &file) {
+  const Eigen::Quaterniond q(T_b_w.linear());
+  const Eigen::Vector3d &p = T_b_w.translation();
+
+  static bool title_wrote = false;
+  if (!title_wrote) {
+    // format - timestamp tx ty tz qx qy qz qw
+    file << "#timestamp, t_x [m], t_y [m], t_z [m], q_x [], q_y [], q_z "
+            "[], "
+            "q_w []"
+         << "\n";
+    title_wrote = true;
+  }
+
+  file << std::to_string(timestamp.toNSec()) << ", " << p[0] << ", " << p[1]
+       << ", " << p[2] << ", " << q.x() << ", " << q.y() << ", " << q.z()
+       << ", " << q.w() << "\n";
+  file.flush();
+}
+
+void MsckfVio::publish(const ros::Time &time) {
 
   // Convert the IMU frame to the body frame.
   const IMUState& imu_state = state_server.imu_state;
@@ -1376,6 +1398,10 @@ void MsckfVio::publish(const ros::Time& time) {
     IMUState::T_imu_body.inverse();
   Eigen::Vector3d body_velocity =
     IMUState::T_imu_body.linear() * imu_state.velocity;
+
+  static std::ofstream file("/tmp/msckf_vio_pose.csv");
+  assert(file.is_open());
+  LogTrackingPose(time, T_b_w, file);
 
   // Publish tf
   if (publish_tf) {
