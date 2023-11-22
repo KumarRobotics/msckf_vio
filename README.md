@@ -53,18 +53,20 @@ Once the `msckf_vio` is built and sourced (via `source <path to catkin_ws>/devel
 
 These launch files can be executed via
 
-```
+``` shell
+# euroc dataset
 roslaunch msckf_vio msckf_vio_euroc.launch
-```
-or
-
-```
+# fla
 roslaunch msckf_vio msckf_vio_fla.launch
+```
+Visual pose and feature through rviz configuration files
+```shell
+rviz -d src/msckf_vio_note/rviz/rviz_euroc_config.rviz
 ```
 
 Once the nodes are running you need to run the dataset rosbags (in a different terminal), for example:
 
-```
+``` shell
 rosbag play V1_01_easy.bag
 ```
 

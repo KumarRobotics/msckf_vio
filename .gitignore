@@ -1,0 +1,7 @@
+# directory
+build/*
+build_nx/*
+bin/*
+.vscode
+
+# file
